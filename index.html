@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>给吴怡清的祝福</title>
+    <style>
+        /* --- 1. 基础布局与萌系字体 --- */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fff0f5; /* 更粉嫩的背景 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            /* 尝试调用系统的圆体字，看起来更萌 */
+            font-family: "YouYuan", "Yuanti SC", "PingFang SC Rounded", "Microsoft YaHei Rounded", "Muli", sans-serif;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- 2. 萌萌的粉色兔子 (升级版表情) --- */
+        .rabbit-container {
+            position: relative;
+            cursor: pointer;
+            width: 160px; /* 稍微大一点 */
+            height: 160px;
+            transition: transform 0.1s; 
+            -webkit-tap-highlight-color: transparent;
+            z-index: 10;
+        }
+        /* 点击时的即时反馈 */
+        .rabbit-container:active { transform: scale(0.95); }
+
+        /* 兔子身体部件 */
+        .head {
+            width: 130px;
+            height: 110px;
+            background-color: #FFB7C5;
+            border-radius: 50% 50% 45% 45%;
+            position: absolute;
+            bottom: 0;
+            left: 15px;
+            box-shadow: 0 8px 20px rgba(255, 167, 185, 0.5);
+            z-index: 2;
+        }
+        .ear {
+            width: 35px;
+            height: 90px;
+            background-color: #FFB7C5;
+            position: absolute;
+            top: -50px;
+            border-radius: 50% 50% 0 0;
+            border: 3px solid #fff0f5; /* 加个白边增加层次感 */
+            box-sizing: border-box;
+            z-index: 1;
+        }
+        .ear.left { left: 25px; transform: rotate(-15deg); }
+        .ear.right { right: 25px; transform: rotate(15deg); }
+        .ear-inner { /* 耳朵内侧 */
+            width: 60%;
+            height: 70%;
+            background-color: #ffcee0;
+            border-radius: 50% 50% 0 0;
+            margin: 10px auto 0;
+        }
+
+        /* 表情区域 - 核心变化区 */
+        .face {
+            position: absolute;
+            bottom: 35px;
+            width: 100%;
+            text-align: center;
+            z-index: 3;
+        }
+        
+        /* 默认状态的眼睛 (圆点) */
+        .eye {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: #5e3d3d; /* 深棕色代替纯黑，更柔和 */
+            border-radius: 50%;
+            margin: 0 18px;
+            transition: all 0.2s ease; /* 表情切换动画 */
+        }
+        /* 默认状态的嘴巴 (小弧线) */
+        .mouth {
+            width: 14px;
+            height: 6px;
+            border-bottom: 3px solid #5e3d3d;
+            border-radius: 50%;
+            margin: 6px auto 0;
+            transition: all 0.2s ease;
+        }
+
+        /* --- 动画状态定义 --- */
+
+        /* 状态1: 蹦蹦跳跳 */
+        .bounce {
+            animation: bounceAnim 0.8s ease infinite;
+        }
+        @keyframes bounceAnim {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-25px); }
+        }
+
+        /* 状态2: 说话时的开心表情 (当 .rabbit-container 有 .speaking 类时触发) */
+        /* 眼睛变成弯弯的笑眼 */
+        .rabbit-container.speaking .eye {
+            height: 6px;
+            width: 14px;
+            background-color: transparent;
+            border-radius: 50% 50% 0 0;
+            border-top: 3px solid #5e3d3d;
+            margin-top: 6px; /* 调整位置 */
+        }
+        /* 嘴巴张开笑 */
+        .rabbit-container.speaking .mouth {
+            width: 18px;
+            height: 10px;
+            border-bottom: 4px solid #5e3d3d;
+            margin-top: 2px;
+        }
+
+
+        /* --- 3. 祝福语文本区域 (打字机效果) --- */
+        #message-container {
+            margin-top: 60px;
+            height: 50px; /* 固定高度防止跳动 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #typewriter-text {
+            font-size: 24px; /* 字体大一点 */
+            color: #d6738a; /* 深粉色文字 */
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            white-space: nowrap; /* 防止文字换行 */
+        }
+        /* 模拟光标闪烁效果，增加打字感 */
+        .cursor::after {
+            content: '|';
+            opacity: 1;
+            margin-left: 5px;
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink { 0%, 100% {opacity: 1;} 50% {opacity: 0;} }
+
+        .hint {
+            position: absolute;
+            bottom: 12%;
+            color: #cea0aa;
+            font-size: 14px;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% {opacity:0.6} 50% {opacity:1} 100% {opacity:0.6} }
+
+    </style>
+</head>
+<body>
+
+    <div class="rabbit-container" id="rabbit">
+        <div class="ear left"><div class="ear-inner"></div></div>
+        <div class="ear right"><div class="ear-inner"></div></div>
+        <div class="head">
+            <div class="face">
+                <div class="eye left-eye"></div>
+                <div class="eye right-eye"></div>
+                <div class="mouth"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="message-container">
+        <span id="typewriter-text"></span>
+    </div>
+
+    <div class="hint">点击小兔子接收祝福</div>
+
+    <script>
+        // 配置区域
+        const messages = [
+            '吴怡清你最棒',
+            '吴怡清你开心一点',
+            '吴怡清你做什么都会成功的',
+            '我将祝福你永远开心'
+        ];
+        let currentLineIndex = 0; // 记录当前播到第几句
+        let isAnimating = false;  // 动画锁，防止重复点击
+
+        const rabbit = document.getElementById('rabbit');
+        const textElement = document.getElementById('typewriter-text');
+
+        // 核心交互事件
+        rabbit.addEventListener('click', () => {
+            // 如果正在说话动画中，忽略这次点击
+            if (isAnimating) return;
+
+            startInteraction();
+        });
+
+        function startInteraction() {
+            isAnimating = true; // 上锁
+
+            // 1. 兔子开始动作：蹦跳 + 开心表情
+            rabbit.classList.add('bounce', 'speaking');
+            // 添加光标效果
+            textElement.classList.add('cursor');
+            
+            // 2. 获取当前要说的句子
+            const currentText = messages[currentLineIndex];
+            // 清空上一句
+            textElement.textContent = '';
+
+            // 3. 启动打字机效果
+            let charIndex = 0;
+            function typeWriter() {
+                if (charIndex < currentText.length) {
+                    // 一个字一个字加上去
+                    textElement.textContent += currentText.charAt(charIndex);
+                    charIndex++;
+                    // 设置打字速度，数字越小越快 (这里设为 150毫秒出一个字)
+                    setTimeout(typeWriter, 150); 
+                } else {
+                    // --- 一句话说完后的收尾工作 ---
+                    
+                    // 移除光标
+                    textElement.classList.remove('cursor');
+                    
+                    // 延迟一下再停止兔子动画，让它多笑一会儿
+                    setTimeout(() => {
+                        rabbit.classList.remove('bounce', 'speaking');
+                        isAnimating = false; // 解锁，可以进行下一次点击了
+                    }, 800);
+
+                    // 更新下一句的索引（循环播放的关键）
+                    // 0 -> 1 -> 2 -> 3 -> 0 -> 1 ...
+                    currentLineIndex = (currentLineIndex + 1) % messages.length;
+                }
+            }
+            // 开始打字循环
+            typeWriter();
+        }
+    </script>
+</body>
+</html>
